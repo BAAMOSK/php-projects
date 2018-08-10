@@ -1,23 +1,17 @@
 <?php
-    function sanitizeInput($input) {
-        $input = strip_tags($input);
-        $input = str_replace(' ', '', $input);
-        return $input;    
-    }
+    include('includes/config.php');
+    include('includes/classes/Constants.php');
+    include('includes/classes/Account.php');
 
-    if(isset($_POST['login-button'])) {
-        echo 'Login button was pressed';
-    }
+    $account = new Account($conn);
 
-    if(isset($_POST['register-button'])) {
+    include('includes/handlers/login_handler.php');
+    include('includes/handlers/register_handler.php');
 
-        $username = sanitizeInput($_POST['register-username']);
-        $email = sanitizeInput($_POST['register-email']);
-        $password = sanitizeInput($_POST['register-password']);
-        $password_confirm = sanitizeInput($_POST['register-password-confirm']);
-
-        echo $username, $email, $password, $password_confirm;
-
+    function getInputValue($name) {
+        if(isset($_POST[$name])) {
+            echo $_POST[$name];
+        }
     }
 ?>
 
@@ -39,8 +33,16 @@
 
         <form id="register-form" action="register.php" method="POST">
             <h2>Register your new account</h2>
-            <input id="register-username" name="register-username" type="text" placeholder="Username">
-            <input id="register-email" name="register-email" type="email" placeholder="Email">
+
+            <div> <?php echo $account->getErrors(Constants::$emailError); ?></div>
+            <div> <?php echo $account->getErrors(Constants::$passwordsDoNotMatch); ?></div>
+            <div> <?php echo $account->getErrors(Constants::$passwordMinLength); ?></div>
+            <div> <?php echo $account->getErrors(Constants::$passwordMaxLength); ?></div>
+
+            <input id="register-username" name="register-username" type="text" placeholder="Username" 
+                value="<?php getInputValue('register-username'); ?>">
+            <input id="register-email" name="register-email" type="email" placeholder="Email"
+                value="<?php getInputValue('register-email'); ?>">
             <input id="register-password" name="register-password" type="password" placeholder="Password">
             <input id="register-password-confirm" name="register-password-confirm" type="password" placeholder="Confirm Password">
             <button type="submit" name="register-button">REGISTER</button>
