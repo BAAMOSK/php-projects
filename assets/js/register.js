@@ -1,13 +1,15 @@
 const login = document.getElementsByClassName('hide-register')[0];
 const register = document.getElementsByClassName('hide-login')[0];
-
-console.log(login);
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
 
 login.onclick = () => {
-
-    console.log('LOGIN'); 
+    registerForm.classList.add('hide');
+    loginForm.classList.remove('hide');
 };
 
-//login.addEventListener('click', () => console.log('Yay'));
-
+register.onclick = () => {
+    loginForm.classList.add('hide');
+    registerForm.classList.remove('hide');
+};
 
