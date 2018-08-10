@@ -15,6 +15,7 @@
         $loginSuccess = $account->register($username, $email, $password, $password_confirm);
 
         if($loginSuccess) {
+            $_SESSION['userLoggedIn'] = $username;
             header('Location: index.php');
         }
 

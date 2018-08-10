@@ -19,21 +19,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="assets/css/styles.css" rel="stylesheet">
     <title>TEE's SPOTIFY</title>
 </head>
 
 <body>
+    <div class="register-background">
+        <img class="register-background__image" src="assets/images/bg.jpeg" alt="record player">    
+    </div>
+
     <div id="input-container">
         <form id="login-form" action="register.php" method="POST">
             <h2>Login to your account</h2>
-            <input id="login-username" name="login-username" type="text" placeholder="Username" required>
+            <div> <?php echo $account->getErrors(Constants::$loginFail); ?></div>
+            <input id="login-username" name="login-username" type="text" placeholder="Username" required 
+                value="<?php getInputValue('login-username'); ?>">
             <input id="login-password" name="login-password" type="password" placeholder="Password" required>
             <button type="submit" name="login-button" value="login">LOGIN</button>
+            
+            <div class="onboard">
+                <p class="hide-login">No account. No problem. Sign up here.</p>
+            </div>
         </form>
 
         <form id="register-form" action="register.php" method="POST">
             <h2>Register your new account</h2>
 
+            <div> <?php echo $account->getErrors(Constants::$usernameExists); ?></div>
+            <div> <?php echo $account->getErrors(Constants::$emailExists); ?></div>
             <div> <?php echo $account->getErrors(Constants::$emailError); ?></div>
             <div> <?php echo $account->getErrors(Constants::$passwordsDoNotMatch); ?></div>
             <div> <?php echo $account->getErrors(Constants::$passwordMinLength); ?></div>
@@ -46,7 +59,13 @@
             <input id="register-password" name="register-password" type="password" placeholder="Password">
             <input id="register-password-confirm" name="register-password-confirm" type="password" placeholder="Confirm Password">
             <button type="submit" name="register-button">REGISTER</button>
+
+            <div class="onboard">
+                <p class="hide-register">Already did this? Login here.</p>
+            </div>
         </form>
     </div>
+
+    <script src="assets/js/register.js"></script>
 </body>
 

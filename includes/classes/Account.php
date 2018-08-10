@@ -1,12 +1,26 @@
 <?php
     class Account {
 
-        private $conn;
+        private $con;
         private $errorArray;
         
         public function __construct($conn) {
             $this->errorArray = array();
-            $this->conn = $conn;
+            $this->con = $conn;
+        }
+
+        public function login($un, $pw) {
+            $pw = md5($pw);
+            $query = mysqli_query($this->con,
+                "SELECT * FROM users WHERE username='$un' AND password='$pw' "
+            );
+
+            if(mysqli_num_rows($query) == 1) {
+                return true;
+            } else {
+                array_push($this->errorArray, Constants::$loginFail);
+                return false;
+            }
         }
 
         public function register($un, $em, $pw, $pwc) {
@@ -33,7 +47,7 @@
             $date = date("Y-m-d");
             $profile_pic = 'assets/images/profile-pics/default.png';
 
-            $result = mysqli_query($this->conn,
+            $result = mysqli_query($this->con,
                 "INSERT INTO users VALUES (NULL, '$un', '$em', '$encrypt_pw', '$date', '$profile_pic')"
             );
 
@@ -41,7 +55,12 @@
         }
 
         private function validateUsername($un) {
-            #Todo: check if username exists
+            $username_exists = mysqli_query($this->con, "SELECT username FROM users WHERE username='$un'");
+            
+            if(mysqli_num_rows($username_exists) != 0) {
+                array_push($this->errorArray, Constants::$usernameExists);
+                return;
+            }
         }
 
         private function validateEmail($em) {
@@ -49,7 +68,13 @@
                 array_push($this->errorArray, Constants::$emailError);
                 return;
             }
-            #Todo: check if email exists
+
+            $email_exists = mysqli_query($this->con, "SELECT email FROM users WHERE email='$em'");
+
+            if(mysqli_num_rows($email_exists) != 0) {
+                array_push($this->errorArray, Constants::$emailExists);
+                return;
+            }
         }
 
         private function validatePasswords($pw, $pwc) {
