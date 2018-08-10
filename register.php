@@ -19,9 +19,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/register.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito|Raleway" rel="stylesheet">
-    <title>MP3's</title>
+    <title>Register Account</title>
 </head>
 
 <body>
@@ -87,6 +87,14 @@
                 <p class="hide-register">Already did this? Login here.</p>
             </div>
         </form>
+
+        <div class="cta">
+            <h1>Your Personal Music Player</h1>
+            <h3>100% free. No ads. Unlimited skips.</h3>
+            <p><span><img class="cta__icon" src="assets/images/note.png"></span>Discover great music.</p>
+            <p><span><img class="cta__icon" src="assets/images/note.png"></span>Great for every occasion.</p>
+            <p><span><img class="cta__icon" src="assets/images/note.png"></span>Follow your favorite artist.</p>
+        </div>
     </div>
 
     <script src="assets/js/register.js"></script>

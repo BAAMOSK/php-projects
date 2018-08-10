@@ -15,6 +15,10 @@
 </head>
 
 <body>
-    <h1>Hello Tee</h1>
+    <div class="main-container">
+        <div class="search-container">Left Bar</div>
+        <div class="album-container">Albums</div>
+    </div>
+    <div class="controls-container">Bottom Bar</div>
 </body>
 

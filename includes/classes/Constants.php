@@ -8,7 +8,7 @@
         public static $usernameExists = 'Username taken';
         public static $emailExists = 'Email exists';
         
-        public static $loginFail = 'Username and password incorrect';
+        public static $loginFail = 'Password incorrect';
     }
 
 ?>
